@@ -9,4 +9,5 @@ runs:
   using: "composite"
   steps:
     - name: Print Greeting
+      shell: bash  # Define the shell to use for the command
       run: echo "Hello, ${{ inputs.name }}!"
