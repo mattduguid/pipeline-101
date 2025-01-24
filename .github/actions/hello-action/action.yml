@@ -1,0 +1,12 @@
+name: "Hello Action"
+description: "A simple reusable action that prints a custom message"
+inputs:
+  name:
+    description: "Name to greet"
+    required: true
+    default: "World"
+runs:
+  using: "composite"
+  steps:
+    - name: Print Greeting
+      run: echo "Hello, ${{ inputs.name }}!"
