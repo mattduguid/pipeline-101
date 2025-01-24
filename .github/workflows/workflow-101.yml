@@ -48,14 +48,47 @@ jobs:
           echo "Repository: $GITHUB_REPOSITORY"
           echo "Event Name: $GITHUB_EVENT_NAME"
 
-  reusable_example:
-    name: Call Reusable Workflow
+  reusable_workflow_1:
+    name: Call Reusable Workflow with Params 1
     uses: ./.github/workflows/reusable.yml
     with:
-      param1: 'Hello, reusable workflow!'
-      param2: 'Optional value'
+      param1: 'First reusable workflow call'
+      param2: 'Additional context for call 1'
     secrets:
       API_SECRET: ${{ secrets.DEPLOY_API_KEY }}
+
+  reusable_workflow_2:
+    name: Call Reusable Workflow with Params 2
+    uses: ./.github/workflows/reusable.yml
+    with:
+      param1: 'Second reusable workflow call'
+      param2: 'Additional context for call 2'
+    secrets:
+      API_SECRET: ${{ secrets.DEPLOY_API_KEY }}
+
+  reusable_action_1:
+    name: Call Reusable Action with Params 1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Run Custom Hello Action - Call 1
+        uses: ./.github/actions/hello-action
+        with:
+          name: "First Action Learner"
+
+  reusable_action_2:
+    name: Call Reusable Action with Params 2
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Run Custom Hello Action - Call 2
+        uses: ./.github/actions/hello-action
+        with:
+          name: "Second Action Learner"
 
   cleanup:
     name: Cleanup Job
