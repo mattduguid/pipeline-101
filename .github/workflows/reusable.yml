@@ -1,0 +1,40 @@
+name: Reusable Workflow Example
+
+on:
+  workflow_call:
+    inputs:
+      param1:
+        description: 'The first parameter for the reusable workflow'
+        required: true
+        type: string
+      param2:
+        description: 'The second parameter (optional)'
+        required: false
+        type: string
+    secrets:
+      API_SECRET:
+        description: 'A secret passed to the reusable workflow'
+
+jobs:
+  reusable_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Input Parameters
+        # Demonstrates how inputs are used
+        run: |
+          echo "Param1: ${{ inputs.param1 }}"
+          echo "Param2: ${{ inputs.param2 }}"
+      
+      - name: Access Secret
+        # Demonstrates how secrets are accessed
+        run: echo "The secret value is ${{ secrets.API_SECRET }}"
+
+      - name: Setup Node.js
+        # Show how external actions work within the reusable workflow
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Example Task
+        # Placeholder for a reusable task
+        run: echo "This reusable workflow performs a common task."
