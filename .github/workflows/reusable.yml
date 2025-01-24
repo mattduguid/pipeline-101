@@ -19,22 +19,15 @@ jobs:
   reusable_job:
     runs-on: ubuntu-latest
     steps:
-      - name: Print Input Parameters
+      - name: Display Inputs
         # Demonstrates how inputs are used
         run: |
           echo "Param1: ${{ inputs.param1 }}"
           echo "Param2: ${{ inputs.param2 }}"
       
-      - name: Access Secret
+      - name: Display Secrets
         # Demonstrates how secrets are accessed
         run: echo "The secret value is ${{ secrets.API_SECRET }}"
 
-      - name: Setup Node.js
-        # Show how external actions work within the reusable workflow
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-
-      - name: Example Task
-        # Placeholder for a reusable task
-        run: echo "This reusable workflow performs a common task."
+      - name: Final Message
+        run: echo "Reusable workflow executed successfully."
