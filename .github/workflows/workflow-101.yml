@@ -96,15 +96,11 @@ jobs:
   reusable_example:
     # Demonstrates calling a reusable workflow
     name: Call Reusable Workflow
-    runs-on: ubuntu-latest
-    steps:
-      - name: Call Reusable Workflow
-        # Invokes a reusable workflow with parameters
-        uses: org/repo/.github/workflows/reusable.yml@main
-        with:
-          param1: value1
-          param2: value2
-        secrets: inherit  # Inherits secrets from the caller workflow
+    uses: org/repo/.github/workflows/reusable.yml@main
+    with:
+      param1: value1
+      param2: value2
+    secrets: inherit  # Inherits secrets from the caller workflow
 
   cleanup:
     # Cleanup job that always runs to ensure resources are released
