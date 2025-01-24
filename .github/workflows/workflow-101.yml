@@ -94,13 +94,13 @@ jobs:
         run: echo "Deploying to production..."
 
   reusable_example:
-    # Demonstrates calling a reusable workflow
     name: Call Reusable Workflow
-    uses: org/repo/.github/workflows/reusable.yml@main
+    uses: ./.github/workflows/reusable.yml
     with:
-      param1: value1
-      param2: value2
-    secrets: inherit  # Inherits secrets from the caller workflow
+      param1: 'Hello, reusable workflow!'
+      param2: 'Optional value'
+    secrets:
+      API_SECRET: ${{ secrets.DEPLOY_API_KEY }}
 
   cleanup:
     # Cleanup job that always runs to ensure resources are released
