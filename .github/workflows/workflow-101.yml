@@ -50,7 +50,7 @@ jobs:
 
   reusable_workflow_1:
     name: Call Reusable Workflow with Params 1
-    uses: ./.github/workflows/reusable.yml
+    uses: ./.github/workflows/reusable-workflow-1.yml
     with:
       param1: 'First reusable workflow call'
       param2: 'Additional context for call 1'
@@ -59,7 +59,7 @@ jobs:
 
   reusable_workflow_2:
     name: Call Reusable Workflow with Params 2
-    uses: ./.github/workflows/reusable.yml
+    uses: ./.github/workflows/reusable-workflow-1.yml
     with:
       param1: 'Second reusable workflow call'
       param2: 'Additional context for call 2'
@@ -67,26 +67,26 @@ jobs:
       API_SECRET: ${{ secrets.DEPLOY_API_KEY }}
 
   reusable_action_1:
-    name: Call Reusable Action with Params 1
+    name: Call Reusable Action 1 with Params 1
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Run Custom Hello Action - Call 1
-        uses: ./.github/actions/hello-action
+      - name: Run Reusable Action 1 - Call 1
+        uses: ./.github/actions/reusable-action-1
         with:
           name: "First Action Learner"
 
   reusable_action_2:
-    name: Call Reusable Action with Params 2
-    runs-on: ubuntu-latest
+    name: Call Reusable Action 1 with Params 2
+    runs-on: macos-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Run Custom Hello Action - Call 2
-        uses: ./.github/actions/hello-action
+      - name: Run Reusable Action 1 - Call 2
+        uses: ./.github/actions/reusable-action-1
         with:
           name: "Second Action Learner"
 

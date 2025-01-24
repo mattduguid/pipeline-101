@@ -1,4 +1,4 @@
-name: "Hello Action"
+name: "Reusable Action 1"
 description: "A simple reusable action that prints a custom message"
 inputs:
   name:
