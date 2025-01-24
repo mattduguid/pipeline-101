@@ -1,19 +1,16 @@
 # Comprehensive GitHub Actions Workflow
-# This workflow demonstrates key components such as events, jobs, steps, matrix, concurrency, reusable workflows, and environment variables.
+# Simplified for displaying messages and learning purposes.
 
 name: Comprehensive GitHub Actions Workflow
 
 on:
-  # Triggers the workflow on pushes to main and feature branches
   push:
     branches:
       - main
       - feature/*
-  # Triggers the workflow on pull requests targeting main
   pull_request:
     branches:
       - main
-  # Allows manual triggering of the workflow with optional inputs
   workflow_dispatch:
     inputs:
       custom_param:
@@ -26,72 +23,30 @@ env:
   GLOBAL_VAR: global_value
 
 permissions:
-  # Sets default permissions for the GITHUB_TOKEN
   contents: write
   actions: read
   checks: read
 
 jobs:
   build:
-    # The build job that compiles code and runs tests
     name: Build Job
     runs-on: ubuntu-latest
     env:
-      # Job-specific environment variable
       BUILD_ENV: build_value
     strategy:
-      # Matrix strategy to test across multiple OS and Node.js versions
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node_version: [14, 16, 18]
-      fail-fast: false  # Ensures all matrix combinations run even if one fails
-      max-parallel: 2  # Limits the number of parallel jobs to 2
+      max-parallel: 1  # Limit to one OS at a time
     steps:
-      - name: Checkout Code
-        # Checks out the repository code
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        # Sets up the specified Node.js version from the matrix
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node_version }}
-
-      - name: Install Dependencies
-        # Installs project dependencies
-        run: npm install
-
-      - name: Run Tests
-        # Runs the test suite
-        run: npm test
-
-      - name: Debug Build Info
-        # Outputs debug information using default GITHUB_* variables
+      - name: Print Debug Information
+        # Outputs system and environment information
         run: |
+          echo "Running on OS: ${{ matrix.os }}"
+          echo "Global Variable: $GLOBAL_VAR"
+          echo "Build Environment Variable: $BUILD_ENV"
           echo "Actor: $GITHUB_ACTOR"
           echo "Repository: $GITHUB_REPOSITORY"
-          echo "Event: $GITHUB_EVENT_NAME"
-
-  deploy:
-    # The deployment job to production
-    name: Deploy Job
-    needs: build  # Depends on the build job
-    runs-on: ubuntu-latest
-    environment: production  # Deploys to the 'production' environment
-    concurrency:
-      # Ensures only one deployment is active per group at a time
-      group: deploy-group
-      cancel-in-progress: true
-    steps:
-      - name: Setup Deployment Tools
-        # Sets up Python for deployment tasks
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.9
-
-      - name: Deploy Application
-        # Placeholder for the actual deployment process
-        run: echo "Deploying to production..."
+          echo "Event Name: $GITHUB_EVENT_NAME"
 
   reusable_example:
     name: Call Reusable Workflow
@@ -103,11 +58,9 @@ jobs:
       API_SECRET: ${{ secrets.DEPLOY_API_KEY }}
 
   cleanup:
-    # Cleanup job that always runs to ensure resources are released
     name: Cleanup Job
     runs-on: ubuntu-latest
-    if: always()  # Ensures this job runs regardless of workflow outcome
+    if: always()
     steps:
       - name: Run Cleanup Scripts
-        # Placeholder for cleanup actions
         run: echo "Cleaning up after workflow..."
