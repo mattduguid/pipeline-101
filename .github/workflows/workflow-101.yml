@@ -1,6 +1,4 @@
-# Comprehensive GitHub Actions Workflow
-# Simplified for displaying messages and learning purposes.
-
+# a training workflow utilising as many components as possible
 name: Comprehensive GitHub Actions Workflow
 
 on:
