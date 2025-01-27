@@ -1,4 +1,3 @@
-
 comment-summary-in-pr: always
 
 # Possible values: "critical", "high", "moderate", "low"
