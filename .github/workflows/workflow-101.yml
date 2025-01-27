@@ -1,4 +1,4 @@
-# a training workflow utilising as many components as possible
+# training workflow utilising as many components as possible
 name: Comprehensive GitHub Actions Workflow
 
 on:
